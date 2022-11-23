@@ -1,7 +1,6 @@
 package com.h2;
 
 import java.text.DecimalFormat;
-import com.h2.Utilities;
 
 public class MortgageCalculator {
     private long loanAmount;
@@ -15,27 +14,26 @@ public class MortgageCalculator {
         this.annualRate = annualRate;
     }
 
-    private int getNumberOfPayments(){
+    private int getNumberOfPayments() {
         return termInYears * 12;
     }
 
-    private float getMonthlyInterestRate(){
+    private float getMonthlyInterestRate() {
         float interestRate = annualRate / 100;
         return interestRate / 12;
     }
 
-    public void calculateMonthlyPayment(){
+    public void calculateMonthlyPayment() {
         long P = loanAmount;
         float r = getMonthlyInterestRate();
         int n = getNumberOfPayments();
-        double M = P * (((r * Math.pow(1 + r, n))) / ((Math.pow((1 + r), n)) - 1));
 
+        double M = P * (((r * Math.pow(1 + r, n))) / ((Math.pow((1 + r), n)) - 1));
         this.monthlyPayment = M;
     }
 
-    public String toString(){
+    public String toString() {
         DecimalFormat df = new DecimalFormat("####0.00");
-
         return "monthlyPayment: " + df.format(monthlyPayment);
     }
 
@@ -44,11 +42,9 @@ public class MortgageCalculator {
         int termInYears = Utilities.getIntValue(args[1]);
         float annualRate = Utilities.getFloatValue(args[2]);
 
-        MortgageCalculator calculator = new MortgageCalculator(loanAmount,termInYears,annualRate);
-
+        MortgageCalculator calculator = new MortgageCalculator(loanAmount, termInYears, annualRate);
         calculator.calculateMonthlyPayment();
-
         System.out.println(calculator.toString());
-
     }
+
 }
